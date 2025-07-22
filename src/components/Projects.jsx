@@ -12,6 +12,11 @@ const Projects = () => {
   const [showNotice, setShowNotice] = useState(false);
   const [noticeText, setNoticeText] = useState('');
 
+  const handleNotice = (message) => {
+    setNoticeText(message);
+    setShowNotice(true);
+  };
+
   const projects = [
     {
       id: 1,
@@ -46,7 +51,6 @@ const Projects = () => {
       title: "Nimbus Marine (Singapore)",
       description: "Elegant site for a marine services firm using Bootstrap, JS and custom CSS3.",
       image: nimbusgif,
-      demoLink: "#",
       note: "This website is confidential and currently not publicly accessible.",
     },
     {
@@ -54,7 +58,7 @@ const Projects = () => {
       title: "AusExport Portal (Ongoing)",
       description: "Currently developing a business export system in React, Next.js & Tailwind for an Australian company.",
       image: ausExportGif,
-      demoLink: "#",
+      note: "This portal is under development and confidential. Demo access restricted.",
     },
   ];
 
@@ -106,11 +110,8 @@ const Projects = () => {
 
               {project.note ? (
                 <button
-                  onClick={() => {
-                    setNoticeText(project.note);
-                    setShowNotice(true);
-                  }}
-                  className="inline-block bg-gray-400 text-white px-4 py-2 rounded cursor-pointer hover:bg-gray-500 transition"
+                  onClick={() => handleNotice(project.note)}
+                  className="inline-block bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
                 >
                   View Project
                 </button>
