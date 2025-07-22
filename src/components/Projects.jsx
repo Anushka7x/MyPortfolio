@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import nursery from '../assets/images/Nursery.gif';
 import travel from '../assets/images/travel.gif';
 import petcare from '../assets/images/petcare.gif';
@@ -9,34 +9,37 @@ import nimbusgif from '../assets/images/Nimbus.gif';
 import flower from "../assets/images/Portfolio.png";
 
 const Projects = () => {
+  const [showNotice, setShowNotice] = useState(false);
+  const [noticeText, setNoticeText] = useState('');
+
   const projects = [
     {
       id: 1,
       title: "Nursery E-commerce UI",
       description: "A plant nursery landing page with clean product cards, filters, and category navigation.",
       image: nursery,
-      demoLink: "#",
+      demoLink: "https://anushka7x.github.io/Nursery/",
     },
     {
       id: 2,
       title: "Street Animal Care",
       description: "Website for donating or helping stray animals. Includes clean layout, donation CTA and user stories.",
       image: petcare,
-      demoLink: "#",
+      demoLink: "https://anushka7x.github.io/pet-care/",
     },
     {
       id: 3,
       title: "Travel Explorer Site",
       description: "A responsive travel agency site with beautiful destination cards, filters and calls-to-action.",
       image: travel,
-      demoLink: "#",
+      demoLink: "https://anushka7x.github.io/Travel/",
     },
     {
       id: 4,
       title: "Bhalekar Consulting (Official Website)",
       description: "Corporate site using Bootstrap, JS & CSS for a modern consulting firm in India.",
       image: Bhalekargif,
-      demoLink: "#",
+      demoLink: "https://bhalekar.ai/",
     },
     {
       id: 5,
@@ -44,6 +47,7 @@ const Projects = () => {
       description: "Elegant site for a marine services firm using Bootstrap, JS and custom CSS3.",
       image: nimbusgif,
       demoLink: "#",
+      note: "This website is confidential and currently not publicly accessible.",
     },
     {
       id: 6,
@@ -65,9 +69,7 @@ const Projects = () => {
 
       {/* Heading */}
       <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
-        <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
-          Projects
-        </h2>
+        <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">Projects</h2>
         <p className="text-lg text-gray-600 dark:text-gray-400">
           Tbh, this portfolio is just to say hi — these designs? That’s the real flex 😎
         </p>
@@ -101,24 +103,54 @@ const Projects = () => {
               <p className="text-gray-700 dark:text-gray-300 mb-4">
                 {project.description}
               </p>
-              <a
-                href={project.demoLink}
-                className="inline-block bg-[rgb(29,136,254)] text-white px-4 py-2 rounded hover:bg-[rgb(22,110,230)] transition"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Project
-              </a>
+
+              {project.note ? (
+                <button
+                  onClick={() => {
+                    setNoticeText(project.note);
+                    setShowNotice(true);
+                  }}
+                  className="inline-block bg-gray-400 text-white px-4 py-2 rounded cursor-pointer hover:bg-gray-500 transition"
+                >
+                  View Project
+                </button>
+              ) : (
+                <a
+                  href={project.demoLink}
+                  className="inline-block bg-[rgb(29,136,254)] text-white px-4 py-2 rounded hover:bg-[rgb(22,110,230)] transition"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Project
+                </a>
+              )}
             </div>
           </div>
         ))}
       </div>
 
+      {/* Decorative Flower */}
       <img
         src={flower}
         alt="Decorative Flower"
         className="absolute right-[2px] top-[95%] w-64 md:w-80 opacity-90 pointer-events-none select-none z-10"
       />
+
+      {/* Notice Modal */}
+      {showNotice && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center px-4">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full text-center">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Notice</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-6">{noticeText}</p>
+            <button
+              onClick={() => setShowNotice(false)}
+              className="px-6 py-2 bg-[rgb(29,136,254)] text-white rounded hover:bg-[rgb(22,110,230)] transition"
+            >
+              Okay
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
